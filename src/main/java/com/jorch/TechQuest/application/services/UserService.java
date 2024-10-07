@@ -8,6 +8,7 @@ import com.jorch.TechQuest.application.infrastructure.adapter.persistence.entity
 import com.jorch.TechQuest.application.infrastructure.adapter.persistence.repository.UserRepository;
 import com.jorch.TechQuest.application.infrastructure.jwt.JwtUtil;
 import com.jorch.TechQuest.domain.exceptions.UserAlreadyExistsException;
+import com.jorch.TechQuest.domain.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,7 +42,7 @@ public class UserService {
         UserEntity user = new UserEntity();
         user.setEmail(registerDTO.getEmail());
         user.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
-        user.setRole(registerDTO.getRole());
+        user.setRole(Role.valueOf(registerDTO.getRole()));
         user.setActive(registerDTO.isActive()); // Usar el valor proporcionado en el DTO
 
         return userRepository.save(user);
